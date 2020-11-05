@@ -11,15 +11,6 @@ namespace WebApplicationWsei.Controllers
     {
         IQueryable<Product> repository;
 
-        //public ProductController(IProductRepository Irepository)
-        //{
-        //    this.repository = Irepository.Products;
-        //}
-
-        //public IEnumerable<Product> GetProducts()
-        //{
-        //    return repository;
-        //}
 
         public ProductController(IProductRepository repository)
         {
@@ -33,6 +24,19 @@ namespace WebApplicationWsei.Controllers
             return View();
         }
 
-        public ViewResult List() => View(this.repository);
+
+
+        public ViewResult ListAll() => View(this.repository);
+
+        public ViewResult List(string category)
+        {
+            if (category == null)
+            {
+                return View(this.repository);
+            } else {
+                return View(this.repository.Where(p => p.category == category));
+            }
+        }
+
     }
 }

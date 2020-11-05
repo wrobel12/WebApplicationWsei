@@ -10,11 +10,12 @@
 <body>
     <div class="navbar navbar-inverse bg-inverse"
          role="navigation">
-        <a class="navbar-brand" href="#">Sklep sportowy</a>
+        <a class="navbar-brand" asp-action="List"
+       asp-controller="Product">Sklep sportowy</a>
     </div>
     <div class="row m-1 p-1 ">
         <div id="categories" class="col-3">
-            Później umieścimy tu coś użytecznego.
+            @await Component.InvokeAsync("NavigationMenu") 
         </div>
         <div class="col-9">
             @RenderBody()

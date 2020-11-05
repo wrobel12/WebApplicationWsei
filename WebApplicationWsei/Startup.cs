@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebApplicationWsei.Models;
 using WebApplication9.Models;
+using Microsoft.AspNetCore.Routing.Matching;
 
 namespace WebApplicationWsei
 {
@@ -45,10 +46,15 @@ namespace WebApplicationWsei
             app.UseStatusCodePages(); // strony ze statusem b³êdu
             app.UseStaticFiles(); // ob³uga css, images, js
 
-            app.UseEndpoints(routes => routes.MapControllerRoute(
- name: "default",
- pattern: "{controller=Product}/{action=List}/{id?}")
- );
+            app.UseEndpoints(endpoints =>
+            {
+            endpoints.MapControllerRoute(
+            name: "default",
+                pattern: "{controller=Product}/{action=List}");
+                endpoints.MapControllerRoute(
+                    name: "productList",
+                    pattern: "{controller=Product}/{action=List}/{category}");
+                    });
 
             SeedData.EnsurePopulated(app);
 
