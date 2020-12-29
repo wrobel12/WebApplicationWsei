@@ -1,0 +1,40 @@
+﻿
+@model Product
+
+
+@{
+    ViewBag.Title = "Wszystkie produkty";
+    Layout = "_AdminLayout";
+}
+
+
+    <form asp-action="Save" method="post">
+        <input type="hidden" asp-for="productID" />
+        <div class="form-group">
+            <label asp-for="name">Produkt</label>
+            <div><span asp-validation-for="name" class="text-danger"></span></div>
+            <input asp-for="name" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="description">Opis</label>
+            <div><span asp-validation-for="description" class="text-danger"></span></div>
+            <input asp-for="description" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="category">Kategoria</label>
+            <div><span asp-validation-for="category" class="text-danger"></span></div>
+            <input asp-for="category" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="price">
+                @Html.LabelFor(x => x.price)
+            </label>
+            <div><span asp-validation-for="price" class="text-danger"></span></div>
+            <input asp-for="price" class="form-control" />
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary" type="submit">Zapisz</button>
+            <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+        </div>
+    </form>
+

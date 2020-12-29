@@ -54,7 +54,11 @@ namespace WebApplicationWsei
                 endpoints.MapControllerRoute(
                     name: "productList",
                     pattern: "{controller=Product}/{action=List}/{category}");
-                    });
+                endpoints.MapControllerRoute(
+            name: "adminView",
+                pattern: "{controller=Admin}/{action=Index}");
+            }
+            );
 
             SeedData.EnsurePopulated(app);
 
