@@ -12,11 +12,44 @@ using Microsoft.Extensions.Hosting;
 using WebApplicationWsei.Models;
 using WebApplication9.Models;
 using Microsoft.AspNetCore.Routing.Matching;
+using System.Diagnostics;
+using Microsoft.Extensions.Logging;
 
 namespace WebApplicationWsei
 {
+    public class ElapsedTimeMiddleware
+    {
+        private readonly ILogger _logger;
+        RequestDelegate _next;
+        public ElapsedTimeMiddleware(RequestDelegate next, ILogger<ElapsedTimeMiddleware> logger)
+        {
+            _next = next;
+            _logger = logger;
+        }
+        public async Task Invoke(HttpContext context)
+        {
+            var sw = new Stopwatch();
+            sw.Start();
+            await _next(context);
+            var isHtml = context.Response.ContentType?.ToLower().Contains("text/html");
+            if (context.Response.StatusCode == 200 && isHtml.GetValueOrDefault())
+            {
+                _logger.LogInformation($"{context.Request.Path} executed in {sw.ElapsedMilliseconds}ms");
+            }
+        }
+    }
+
+    public static class BuilderExtensions
+    {
+        public static IApplicationBuilder UseElapsedTimeMiddleware(this IApplicationBuilder app)
+        {
+            return app.UseMiddleware<ElapsedTimeMiddleware>();
+        }
+    }
+
     public class Startup
     {
+
         public Startup(IConfiguration configuration) =>
         Configuration = configuration;
 
@@ -32,6 +65,9 @@ namespace WebApplicationWsei
             
         }
 
+
+
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 
@@ -40,11 +76,20 @@ namespace WebApplicationWsei
             {
                 app.UseDeveloperExceptionPage();
             }
+    
+
+            app.UseStaticFiles(); // ob³uga css, images, js
 
             app.UseRouting();
+            app.UseElapsedTimeMiddleware();
+
+
+
             app.UseDeveloperExceptionPage(); // info o b³êdach
             app.UseStatusCodePages(); // strony ze statusem b³êdu
-            app.UseStaticFiles(); // ob³uga css, images, js
+
+
+           
 
             app.UseEndpoints(endpoints =>
             {
@@ -65,4 +110,6 @@ namespace WebApplicationWsei
 
         }
     }
+
+  
 }
