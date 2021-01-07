@@ -38,5 +38,7 @@ namespace WebApplicationWsei.Controllers
             }
         }
 
+        public ViewResult GetById(int id) => View(repository.Single(p => p.productID == id));
+
     }
 }

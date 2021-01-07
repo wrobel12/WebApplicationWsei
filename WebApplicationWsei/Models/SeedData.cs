@@ -13,7 +13,7 @@ namespace WebApplication9.Models
     {
         public static void EnsurePopulated(IApplicationBuilder app)
         {
-            var context = app.ApplicationServices
+            AppDbContext context = app.ApplicationServices
                 .GetRequiredService<AppDbContext>();
             context.Database.Migrate();
             if (!context.Products.Any())

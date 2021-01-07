@@ -1,19 +1,23 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using WebApplicationWsei.Models;
-using WebApplication9.Models;
 using Microsoft.AspNetCore.Routing.Matching;
-using System.Diagnostics;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Identity;
+using WebApplication9.Models;
+using Swashbuckle.AspNetCore.Swagger;
+using System.Reflection;
+using System.IO;
+using Swashbuckle.Swagger;
 
 namespace WebApplicationWsei
 {
@@ -58,11 +62,28 @@ namespace WebApplicationWsei
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
-            services.AddTransient<IProductRepository, EFProductRepository>();
+           
+            
             services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(Configuration["Data:SportStoreProducts:ConnectionString"]));
-            
+            services.AddIdentity<IdentityUser, IdentityRole>()
+               .AddEntityFrameworkStores<AppDbContext>()
+               .AddDefaultTokenProviders();
+
+            services.AddTransient<IProductRepository, EFProductRepository>();
+
+            services.AddMvc();
+            services.AddSwaggerGen(c =>
+            {
+                
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+
+            });
+
+            services.AddRazorPages();
+
         }
 
 
@@ -72,24 +93,24 @@ namespace WebApplicationWsei
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-    
+
+          
+          
+            app.UseDeveloperExceptionPage();
+            app.UseStatusCodePages(); // strony ze statusem b³êdu
 
             app.UseStaticFiles(); // ob³uga css, images, js
+            app.UseAuthentication();
 
             app.UseRouting();
+            app.UseAuthorization();
             app.UseElapsedTimeMiddleware();
 
 
 
-            app.UseDeveloperExceptionPage(); // info o b³êdach
-            app.UseStatusCodePages(); // strony ze statusem b³êdu
 
 
-           
+
 
             app.UseEndpoints(endpoints =>
             {

@@ -7,20 +7,44 @@
     ViewData["Title"] = "View";
 }
 
-<h1>View</h1>
+<h3>Category</h3>
 
-<a class="btn btn-block"
+@*<a class="btn btn-block"
    asp-action="List"
    asp-controller="Product">
     All
-</a>
+</a>*@
 
-@foreach (string category in Model)
-{
-    <a class="btn btn-block"
-       asp-action="List"
-       asp-controller="Product"
-       asp-route-category="@category">
-        @category
+<div class="list-group list-group">
+
+    <a class="list-group-item list-group-item-action" asp-action="List"
+        asp-controller="Product">
+        All
+        <span class="badge bg-primary rounded-pill">0</span>
     </a>
-}
+
+
+
+    @foreach (string category in Model)
+    {
+<a class="list-group-item list-group-item-action" asp-action="List"
+    asp-controller="Product"
+    asp-route-category="@category">
+    @category
+    <span class="badge bg-primary rounded-pill">1</span>
+</a>
+        
+    }
+
+</div>
+        </div>
+
+        @*@foreach (string category in Model)
+            {
+                <a class="btn btn-block"
+                   asp-action="List"
+                   asp-controller="Product"
+                   asp-route-category="@category">
+                    @category
+                </a>
+            }*@
