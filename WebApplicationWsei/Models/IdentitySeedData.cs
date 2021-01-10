@@ -10,7 +10,7 @@ namespace WebApplicationWsei.Models
     public class IdentitySeedData
     {
         private const string adminUser = "Admin";
-        private const string adminPassword = "123";
+        private const string adminPassword = "krowka123$";
 
         public static async Task EnsurePopulated(UserManager<IdentityUser> userManager)
         {
@@ -19,6 +19,7 @@ namespace WebApplicationWsei.Models
             if (user == null)
             {
                 user = new IdentityUser("Admin");
+             
                 await userManager.CreateAsync(user, adminPassword);
             }
         }

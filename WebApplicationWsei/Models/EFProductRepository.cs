@@ -51,5 +51,31 @@ namespace WebApplicationWsei.Models
             return dbEntry;
         }
 
+        public int CountProducts()
+        {
+            var num = 0;
+
+            foreach (var products in Products)
+            {
+                num++;
+            }
+
+            return num;
+        }
+
+        public int CountProducts(string category)
+        {
+            var num = 0;
+
+            var list = Products.Where(product => product.category == category);
+
+            foreach (var item in list)
+            {
+                num++;
+            }
+
+            return num;
+        }
+
     }
 }

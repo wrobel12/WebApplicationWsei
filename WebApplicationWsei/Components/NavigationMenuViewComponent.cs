@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.View;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplicationWsei.Models;
@@ -18,7 +20,12 @@ namespace WebApplicationWsei.Components
         public IViewComponentResult Invoke()
         {
             ViewBag.SelectedCategory = RouteData?.Values["category"];
-            return View(_productRepository.Products.Select(x => x.category).Distinct().OrderBy(x => x));
+            dynamic mymodel = new ExpandoObject();
+            mymodel.modelCategory = _productRepository.Products.Select(x => x.category).Distinct().OrderBy(x => x);
+            mymodel.products = _productRepository;
+
+            //return View(_productRepository.Products);
+            return View(mymodel);
 
         }
     }

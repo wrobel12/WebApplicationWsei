@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace WebApplicationWsei.Models.ViewModels
 {
-    
+
     public class LoginModel
     {
-        [Required]
+        
         public string Name { get; set; }
 
         [Required]
@@ -18,5 +18,8 @@ namespace WebApplicationWsei.Models.ViewModels
         public string Password { get; set; }
 
         public string ReturnUrl { get; set; } = "/";
+
+        [Required]
+        public string UserName { get; set; }
     }
 }

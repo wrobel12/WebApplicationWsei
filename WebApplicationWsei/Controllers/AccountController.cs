@@ -35,7 +35,7 @@ namespace WebApplicationWsei.Controllers
                 ReturnUrl = returnUrl
             });
 
-            return View(returnUrl);
+          
         }
 
         [HttpPost]
@@ -43,16 +43,10 @@ namespace WebApplicationWsei.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginModel loginModel)
         {
-
-
-
-
             if (ModelState.IsValid)
             {
                 IdentityUser user =
-                    await userManager.FindByNameAsync(loginModel.Name);
-
-
+                    await userManager.FindByNameAsync(loginModel.UserName);
                 if (user != null)
                 {
                     await signInManager.SignOutAsync();
@@ -62,9 +56,8 @@ namespace WebApplicationWsei.Controllers
                         return Redirect(loginModel?.ReturnUrl ?? "/Admin/Index");
                     }
                 }
-
-            }        
-        ModelState.AddModelError("", "Nieprawidłowa nazwa użytkownika lub hasło");
+            }
+            ModelState.AddModelError("", "Nieprawidłowa nazwa użytkownika lub hasło");
             return View(loginModel);
         }
 

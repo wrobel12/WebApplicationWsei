@@ -1,50 +1,33 @@
 ﻿
-
-@model IQueryable<string>
+@model dynamic
 
 
 @{
     ViewData["Title"] = "View";
 }
 
-<h3>Category</h3>
+<h3 style="margin-top: 50px">Category</h3>
 
-@*<a class="btn btn-block"
-   asp-action="List"
-   asp-controller="Product">
-    All
-</a>*@
 
-<div class="list-group list-group">
+<div class="list-group list-group" style="margin-top: 20px">
 
     <a class="list-group-item list-group-item-action" asp-action="List"
         asp-controller="Product">
         All
-        <span class="badge bg-primary rounded-pill">0</span>
+        <span class="badge bg-primary rounded-pill">@Model.products.CountProducts()</span>
     </a>
 
 
 
-    @foreach (string category in Model)
+    @foreach (string category in Model.modelCategory)
     {
 <a class="list-group-item list-group-item-action" asp-action="List"
     asp-controller="Product"
     asp-route-category="@category">
     @category
-    <span class="badge bg-primary rounded-pill">1</span>
+    <span class="badge bg-primary rounded-pill">@Model.products.CountProducts(category)</span>
 </a>
         
     }
 
 </div>
-        </div>
-
-        @*@foreach (string category in Model)
-            {
-                <a class="btn btn-block"
-                   asp-action="List"
-                   asp-controller="Product"
-                   asp-route-category="@category">
-                    @category
-                </a>
-            }*@
