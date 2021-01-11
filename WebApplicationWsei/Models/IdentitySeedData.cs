@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,7 +11,7 @@ namespace WebApplicationWsei.Models
     public class IdentitySeedData
     {
         private const string adminUser = "Admin";
-        private const string adminPassword = "krowka123$";
+        private const string adminPassword = "Krowka123$";
 
         public static async Task EnsurePopulated(UserManager<IdentityUser> userManager)
         {
