@@ -8,33 +8,40 @@
 }
 
 
-    <form asp-action="Save" method="post">
+    <form asp-action="Save" method="post" style="margin-top: 20px;">
         <input type="hidden" asp-for="productID" />
-        <div class="form-group">
+        <div class="form-group row mb-3">
             <label asp-for="name">Produkt</label>
             <div><span asp-validation-for="name" class="text-danger"></span></div>
-            <input asp-for="name" class="form-control" />
+            <div class="col-sm-3">
+                <input asp-for="name" class="form-control" />
+            </div>
         </div>
-        <div class="form-group">
+        <div class="form-group row mb-3" style="margin-top: 10px;">
             <label asp-for="description">Opis</label>
             <div><span asp-validation-for="description" class="text-danger"></span></div>
-            <input asp-for="description" class="form-control" />
-        </div>
-        <div class="form-group">
+            <div class="col-sm-3">
+                <input asp-for="description" class="form-control" />
+                </div>
+            </div>
+        <div class="form-group row mb-3" style="margin-top: 10px;">
             <label asp-for="category">Kategoria</label>
             <div><span asp-validation-for="category" class="text-danger"></span></div>
-            <input asp-for="category" class="form-control" />
-        </div>
-        <div class="form-group">
+            <div class="col-sm-3">
+                <input asp-for="category" class="form-control" />
+                </div>
+            </div>
+        <div class="form-group row mb-3" style="margin-top: 10px;">
             <label asp-for="price">
                 @Html.LabelFor(x => x.price)
             </label>
             <div><span asp-validation-for="price" class="text-danger"></span></div>
-            <input asp-for="price" class="form-control" />
-        </div>
-        <div class="text-center">
-            <button class="btn btn-primary" type="submit">Zapisz</button>
-            <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
-        </div>
-    </form>
+            <div class="col-sm-3">
+                <input asp-for="price" class="form-control" />
+                </div>
+            </div>
+                <button class="btn btn-primary" type="submit">Zapisz</button>
+                <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+            
+</form>
 

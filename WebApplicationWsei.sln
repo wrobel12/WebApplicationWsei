@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplicationWsei", "WebApplicationWsei\WebApplicationWsei.csproj", "{F0927782-7901-4EAE-80D9-3B2FE48B6206}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplicationWsei.tests", "WebApplicationWsei.tests\WebApplicationWsei.tests.csproj", "{AB537A27-9137-4A01-BAD5-F6586A857973}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplicationWsei.tests", "WebApplicationWsei.tests\WebApplicationWsei.tests.csproj", "{AB537A27-9137-4A01-BAD5-F6586A857973}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
