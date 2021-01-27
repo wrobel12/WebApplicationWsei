@@ -12,16 +12,19 @@ namespace WebApplicationWsei.Models
     {
         public int productID { get; set; }
         
+        [Required]
         [Display(Name = "Nazwa")]
         public string name { get; set; }
 
         [Display(Name = "Opis")]
         public string description { get; set; }
 
+        [Required]
         [Range(0.01, double.MaxValue, ErrorMessage = "Proszę podać dodatnią cenę")]
         [Display(Name = "Cena label")]
         public decimal price { get; set; }
 
+        [Required]
         [Display(Name = "Kategoria")]
         public string category { get; set; }
 

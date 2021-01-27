@@ -18,6 +18,8 @@ using Swashbuckle.AspNetCore.Swagger;
 using System.Reflection;
 using System.IO;
 using Swashbuckle.Swagger;
+using WebApplicationWsei.Models.Hubs;
+using Microsoft.OpenApi.Models;
 
 namespace WebApplicationWsei
 {
@@ -76,7 +78,15 @@ namespace WebApplicationWsei
             services.AddMvc();
             services.AddSwaggerGen(c =>
             {
-                
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Sports Store API",
+                    Description = "A simple example ASP.NET Core Web API",
+                    TermsOfService = new Uri("https://example.com/terms"),
+              
+                });
+
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
@@ -84,6 +94,7 @@ namespace WebApplicationWsei
             });
 
             services.AddRazorPages();
+            services.AddSignalR();
 
         }
 
@@ -95,8 +106,8 @@ namespace WebApplicationWsei
 
         {
 
-          
-          
+           
+
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages(); // strony ze statusem b³êdu
 
@@ -107,15 +118,19 @@ namespace WebApplicationWsei
             app.UseAuthorization();
             app.UseElapsedTimeMiddleware();
 
-
-
-
-
-
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sport Store API V1");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseEndpoints(endpoints =>
             {
-            endpoints.MapControllerRoute(
+
+                endpoints.MapHub<ChatHub>("/chathub");
+
+                endpoints.MapControllerRoute(
             name: "default",
                 pattern: "{controller=Product}/{action=List}");
                 endpoints.MapControllerRoute(
@@ -124,6 +139,11 @@ namespace WebApplicationWsei
                 endpoints.MapControllerRoute(
             name: "adminView",
                 pattern: "{controller=Admin}/{action=Index}");
+                endpoints.MapControllerRoute(
+            name: "chatView",
+                pattern: "{controller=Chat}/{action=Index}");
+
+
             }
             );
 

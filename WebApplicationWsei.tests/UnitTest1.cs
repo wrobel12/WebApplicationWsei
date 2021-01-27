@@ -61,6 +61,35 @@ namespace WebApplicationWsei.tests
             Assert.True(result[1].name == "P4" && result[1].category == "Cat2");
         }
 
+        [Fact]
+        public void Can_Get_All_Products()
+        {
+            // Przygotowanie.
+            // Utworzenie imitacji repozytorium.
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            mock.Setup(m => m.Products).Returns((new Product[] {
+                new Product {productID = 1, name = "P1", category = "Cat1"},
+                new Product {productID = 2, name = "P2", category = "Cat2"},
+                new Product {productID = 3, name = "P3", category = "Cat1"},
+                new Product {productID = 4, name = "P4", category = "Cat2"},
+                new Product {productID = 5, name = "P5", category = "Cat3"}
+            }).AsQueryable<Product>());
+
+            // Przygotowanie — utworzenie kontrolera i ustawienie 3-elementowej strony.
+            ProductController controller = new ProductController(mock.Object);
+
+            // Dzia³anie.
+            Product[] result = GetViewModel<IEnumerable<Product>>(controller.ListAll()).ToArray();
+
+            // Asercje.
+            Assert.Equal(5, result.Length);
+            Assert.True(result[0].name == "P1" && result[0].category == "Cat1");
+            Assert.True(result[1].name == "P2" && result[1].category == "Cat2");
+            Assert.True(result[2].name == "P3" && result[2].category == "Cat1");
+            Assert.True(result[3].name == "P4" && result[3].category == "Cat2");
+            Assert.True(result[4].name == "P5" && result[4].category == "Cat3");
+        }
+
         [Theory]
         [InlineData(1, "P1")]
         [InlineData(4, "P4")]
@@ -86,6 +115,10 @@ namespace WebApplicationWsei.tests
             // Asercje.
             Assert.Equal(result.name, expectedName);
         }
+
+      
+
+
 
         private T GetViewModel<T>(IActionResult result) where T : class
         {

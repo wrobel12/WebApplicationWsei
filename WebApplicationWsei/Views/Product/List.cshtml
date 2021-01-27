@@ -1,27 +1,22 @@
 ﻿@model IQueryable<Product>
 
-    
 
-    <div class="row" style="margin: 50px;">
-        <h3 style="margin-left: 20px;">Products</h3>
 
-        @foreach (var p in Model)
-        {
+<div class="row" style="margin: 50px;">
+    <h3 style="margin-left: 20px;">Products</h3>
 
-            <div class="col-sm-4">
-                <div class="card text-center" style="margin: 10px 20px 20px 20px">
-                    <div class="card-body" style="height: 170px; margin-top: 10px;">
-                        <h5 class="card-title">@p.name</h5>
-                        <p class="card-text">@p.description</p>
-                        <a href="#" class="btn btn-primary">@p.price.ToString("c")</a>
-                    </div>
+    @foreach (var p in Model)
+    {
+
+        <div class="col-sm-4">
+            <div class="card text-center" style="margin: 10px 20px 20px 20px">
+                <div class="card-body" style="height: 170px; margin-top: 10px;">
+                    <h5 class="card-title">@p.name</h5>
+                    <p class="card-text">@p.description</p>
+                    <a href="#" class="btn btn-primary">@p.price.ToString("c")</a>
                 </div>
             </div>
-        }
+        </div>
+    }
 
-    </div>
-
-
-
-
- 
+</div>

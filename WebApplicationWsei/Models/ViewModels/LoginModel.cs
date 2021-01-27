@@ -21,5 +21,16 @@ namespace WebApplicationWsei.Models.ViewModels
 
         [Required]
         public string UserName { get; set; }
+
+        public LoginModel(string name, string pass)
+        {
+            this.Name = name;
+            this.Password = pass;
+        }
+
+        public LoginModel()
+        {
+
+        }
     }
 }
